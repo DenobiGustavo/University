@@ -1,0 +1,11 @@
+{
+  "name": "simuladororiginal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "automaton_simulator.js",
+  "scripts": {
+    "rodar": "node automaton_simulator.js index.json input.csv arquivo_de_saida.out"
+  },
+  "author": "",
+  "license": "ISC"
+}
