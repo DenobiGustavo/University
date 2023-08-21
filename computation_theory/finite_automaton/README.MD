@@ -26,9 +26,9 @@ Os resultados da simulação são gravados em um arquivo de saída, seguindo o f
 
 ## Exemplificação
 
-##AFD
+## AFD
 
-#JSON: 
+# JSON: 
 
 {
   "initial": 0,
@@ -40,7 +40,7 @@ Os resultados da simulação são gravados em um arquivo de saída, seguindo o f
   ]
 }
 
-#CSV:
+# CSV:
 
 a;0
 aa;0
@@ -48,7 +48,7 @@ aaaa;0
 bbbab;1
 ab;1
 
-#SAÍDA:
+# SAÍDA:
 
 a;0;0;0.199
 aa;0;0;0.018
@@ -56,9 +56,9 @@ aaaa;0;0;0.017
 bbbab;1;1;0.007
 ab;1;1;0.195
 
-##AFND
+## AFND
 
-#JSON:
+# JSON:
 
 {
   "initial": 0,
@@ -71,7 +71,7 @@ ab;1;1;0.195
   ]
 }
 
-#CSV:
+# CSV:
 
 a;0
 aa;0
@@ -79,7 +79,7 @@ ababab;1
 bbbab;1
 ab;1
 
-#SAÍDA:
+# SAÍDA:
 
 a;0;0;0.247
 aa;0;0;0.025
