@@ -1,0 +1,15 @@
+D:\Users\Gabriel\C#\compiladores\translator\bin\Debug\net6.0\translator.exe
+D:\Users\Gabriel\C#\compiladores\translator\bin\Debug\net6.0\translator.deps.json
+D:\Users\Gabriel\C#\compiladores\translator\bin\Debug\net6.0\translator.runtimeconfig.json
+D:\Users\Gabriel\C#\compiladores\translator\bin\Debug\net6.0\translator.dll
+D:\Users\Gabriel\C#\compiladores\translator\bin\Debug\net6.0\translator.pdb
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\translator.csproj.AssemblyReference.cache
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\translator.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\translator.AssemblyInfoInputs.cache
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\translator.AssemblyInfo.cs
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\translator.csproj.CoreCompileInputs.cache
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\translator.dll
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\refint\translator.dll
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\translator.pdb
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\translator.genruntimeconfig.cache
+D:\Users\Gabriel\C#\compiladores\translator\obj\Debug\net6.0\ref\translator.dll
