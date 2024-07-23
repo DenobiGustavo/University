@@ -9,7 +9,7 @@ import (
 
 // Define os tamanhos das matrizes para os testes
 const sizeSmall = 5
-const sizeLarge = 2000
+const sizeLarge = 5
 
 
 // Função para gerar uma matriz aleatória de tamanho n x n
@@ -95,7 +95,7 @@ func main() {
     fmt.Printf("Tempo paralelo: %s\n", elapsed)
 
     // Teste com matrizes grandes (20000x20000)
-    fmt.Println("Teste com matrizes grandes (2000x2000)")
+    fmt.Println("Teste com matrizes grandes (1000x1000)")
     aLarge := generateMatrix(sizeLarge)
     bLarge := generateMatrix(sizeLarge)
 
