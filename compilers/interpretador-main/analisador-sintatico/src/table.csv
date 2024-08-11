@@ -1,0 +1,4 @@
+NonTerminal,a,b
+S,A B,
+A,a,ε
+B,ε,b
