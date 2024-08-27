@@ -1,0 +1,445 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.example.org/ontologia-decisao#"
+         xml:base="http://www.example.org/ontologia-decisao"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+         xmlns:swrlb="http://www.w3.org/2003/11/swrlb#">
+
+  <!-- Ontology Definition -->
+  <owl:Ontology rdf:about="http://www.example.org/ontologia-decisao"/>
+
+  <!-- Classes -->
+  <owl:Class rdf:about="#CondicaoClimatica"/>
+  <owl:Class rdf:about="#DiaChuvoso">
+    <rdfs:subClassOf rdf:resource="#CondicaoClimatica"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DisponibilidadeTransporte"/>
+  <owl:Class rdf:about="#DisponibilidadeTempo"/>
+  <owl:Class rdf:about="#DisponibilidadeDinheiro"/>
+  <owl:Class rdf:about="#Propriedade"/>
+  <owl:Class rdf:about="#Decisao"/>
+
+  <!-- Object Properties -->
+  <owl:ObjectProperty rdf:about="#temCondicaoClimatica">
+    <rdfs:domain rdf:resource="#Decisao"/>
+    <rdfs:range rdf:resource="#CondicaoClimatica"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="#temDisponibilidadeTransporte">
+    <rdfs:domain rdf:resource="#Decisao"/>
+    <rdfs:range rdf:resource="#DisponibilidadeTransporte"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="#temDisponibilidadeTempo">
+    <rdfs:domain rdf:resource="#Decisao"/>
+    <rdfs:range rdf:resource="#DisponibilidadeTempo"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="#temDisponibilidadeDinheiro">
+    <rdfs:domain rdf:resource="#Decisao"/>
+    <rdfs:range rdf:resource="#DisponibilidadeDinheiro"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:about="#temPropriedade">
+    <rdfs:domain rdf:resource="#Decisao"/>
+    <rdfs:range rdf:resource="#Propriedade"/>
+  </owl:ObjectProperty>
+
+  <!-- Data Properties -->
+  <owl:DatatypeProperty rdf:about="#estaChovendo">
+    <rdfs:domain rdf:resource="#CondicaoClimatica"/>
+    <rdfs:range rdf:resource="xsd:boolean"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#paisSaiuComCarro">
+    <rdfs:domain rdf:resource="#DisponibilidadeTransporte"/>
+    <rdfs:range rdf:resource="xsd:boolean"/>
+  </owl:DatatypeProperty>
+  
+  <owl:DatatypeProperty rdf:about="#temProvaParaEstudar">
+    <rdfs:domain rdf:resource="#DisponibilidadeTempo"/>
+    <rdfs:range rdf:resource="xsd:boolean"/>
+  </owl:DatatypeProperty>
+  
+  <owl:DatatypeProperty rdf:about="#temTrabalho">
+    <rdfs:domain rdf:resource="#DisponibilidadeTempo"/>
+    <rdfs:range rdf:resource="xsd:boolean"/>
+  </owl:DatatypeProperty>
+  
+  <owl:DatatypeProperty rdf:about="#aulaAmanha">
+    <rdfs:domain rdf:resource="#DisponibilidadeTempo"/>
+    <rdfs:range rdf:resource="xsd:boolean"/>
+  </owl:DatatypeProperty>
+  
+  <owl:DatatypeProperty rdf:about="#emergencia">
+    <rdfs:domain rdf:resource="#DisponibilidadeDinheiro"/>
+    <rdfs:range rdf:resource="xsd:boolean"/>
+  </owl:DatatypeProperty>
+  
+  <owl:DatatypeProperty rdf:about="#estaAtrasado">
+    <rdfs:domain rdf:resource="#Propriedade"/>
+    <rdfs:range rdf:resource="xsd:boolean"/>
+  </owl:DatatypeProperty>
+  
+  <owl:DatatypeProperty rdf:about="#elaTemCompromisso">
+    <rdfs:domain rdf:resource="#Propriedade"/>
+    <rdfs:range rdf:resource="xsd:boolean"/>
+  </owl:DatatypeProperty>
+  
+  <owl:DatatypeProperty rdf:about="#feriado">
+    <rdfs:domain rdf:resource="#Propriedade"/>
+    <rdfs:range rdf:resource="xsd:boolean"/>
+  </owl:DatatypeProperty>
+
+  <!-- SWRL Rules -->
+  
+  <!-- Se climatempo está dizendo que vai chover = sim, então pode chover hoje = sim -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#estaChovendo"/>
+        <swrl:argument1 rdf:resource="#CondicaoClimatica"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#PodeChoverHoje"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se climatempo está dizendo que vai chover = não, então pode chover hoje = não -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#estaChovendo"/>
+        <swrl:argument1 rdf:resource="#CondicaoClimatica"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#PodeChoverHoje"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se meus pais saíram com o carro = sim, então temos condução para ir = não -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#paisSaiuComCarro"/>
+        <swrl:argument1 rdf:resource="#DisponibilidadeTransporte"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemosConducaoParaIr"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se meus pais saíram com o carro = não, então temos condução para ir = sim -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#paisSaiuComCarro"/>
+        <swrl:argument1 rdf:resource="#DisponibilidadeTransporte"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemosConducaoParaIr"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se tenho prova para estudar = sim ou tenho trabalho para fazer = sim, então tenho tempo suficiente = não -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#temProvaParaEstudar"/>
+        <swrl:argument1 rdf:resource="#DisponibilidadeTempo"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#temTrabalho"/>
+        <swrl:argument1 rdf:resource="#DisponibilidadeTempo"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemTempoSuficiente"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se tenho prova para estudar = não e tenho trabalho para fazer = não, então tenho tempo suficiente = sim -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#temProvaParaEstudar"/>
+        <swrl:argument1 rdf:resource="#DisponibilidadeTempo"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#temTrabalho"/>
+        <swrl:argument1 rdf:resource="#DisponibilidadeTempo"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemTempoSuficiente"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se vou ter aula amanhã = não, então tenho tempo suficiente = sim -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#aulaAmanha"/>
+        <swrl:argument1 rdf:resource="#DisponibilidadeTempo"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemTempoSuficiente"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se emergência = sim, então tenho dinheiro suficiente = não -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#emergencia"/>
+        <swrl:argument1 rdf:resource="#DisponibilidadeDinheiro"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemDinheiroSuficiente"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se emergência = não, então tenho dinheiro suficiente = sim -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#emergencia"/>
+        <swrl:argument1 rdf:resource="#DisponibilidadeDinheiro"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemDinheiroSuficiente"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se já está tarde = sim ou ela tem compromisso = sim ou hoje é feriado = sim, então está propício = não -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#estaAtrasado"/>
+        <swrl:argument1 rdf:resource="#Propriedade"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#elaTemCompromisso"/>
+        <swrl:argument1 rdf:resource="#Propriedade"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#feriado"/>
+        <swrl:argument1 rdf:resource="#Propriedade"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#EstaPropicio"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se já está tarde = não e ela tem compromisso = não e hoje é feriado = não, então está propício = sim -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#estaAtrasado"/>
+        <swrl:argument1 rdf:resource="#Propriedade"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#elaTemCompromisso"/>
+        <swrl:argument1 rdf:resource="#Propriedade"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#feriado"/>
+        <swrl:argument1 rdf:resource="#Propriedade"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#EstaPropicio"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se pode chover hoje = sim ou temos condução = não ou tenho tempo suficiente = não ou tenho dinheiro suficiente = não ou está propício = não, então devo chamar ela/ele para sair? = não -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#PodeChoverHoje"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemosConducaoParaIr"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemTempoSuficiente"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemDinheiroSuficiente"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#EstaPropicio"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#DevoChamarParaSair"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+  
+  <!-- Se pode chover hoje = não e temos condução = sim e tenho tempo suficiente = sim e tenho dinheiro suficiente = sim e está propício = sim, então devo chamar ela/ele para sair? = sim -->
+  <swrl:Imp>
+    <swrl:antecedent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#PodeChoverHoje"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'false'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemosConducaoParaIr"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemTempoSuficiente"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#TemDinheiroSuficiente"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#EstaPropicio"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:antecedent>
+    <swrl:consequent>
+      <swrl:Atom>
+        <swrl:individualProperty rdf:resource="#DevoChamarParaSair"/>
+        <swrl:argument1 rdf:resource="#Decisao"/>
+        <swrl:argument2 rdf:resource="xsd:boolean 'true'"/>
+        <swrl:predicate rdf:resource="http://www.w3.org/2003/11/swrl#equal"/>
+      </swrl:Atom>
+    </swrl:consequent>
+  </swrl:Imp>
+
+</rdf:RDF>
+
